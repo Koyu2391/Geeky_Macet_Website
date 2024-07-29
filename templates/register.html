@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Member Registration</title>
+        <link rel="icon" href="static/resources/club_logo.png">
+        <link rel="stylesheet" href="../static/styles/styles.css">
+        <link href="https://fonts.googleapis.com/css?family=Amaranth:700i"
+            rel="stylesheet">
+        <link
+            href="https://fonts.googleapis.com/css?family=Montserrat+Alternates"
+            rel="stylesheet">
+
+        <link href="https://fonts.googleapis.com/css?family=Maven+Pro"
+            rel="stylesheet">
+        <link
+            href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300i"
+            rel="stylesheet">
+    </head>
+    <body>
+        <nav>
+            <div id="menuToggle">
+                <input type="checkbox" />
+                <span></span>
+                <span></span>
+                <span></span>
+                <ul id="menu">
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="register.html">Register User</a></li>
+                    <li><a href="verify.html">Verify User</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <ul>
+                <li><img src="static/resources/club_logo.png" alt="Club Logo"
+                        id="college-logo"></li>
+                <li><a href="index.html" class="navm">Home</a></li>
+                <li><a href="register.html" class="navm">Register
+                        User</a></li>
+                <li><a href="verify.html" class="navm">Verify
+                        User</a></li>
+                <li><a href="contact.html" class="navm">Contact</a></li>
+                <li><img src="static/resources/macet_logo.png" alt="College Logo"
+                        id="club-logo"></li>
+            </ul>
+        </nav>
+
+    </div>
+    <div class="container">
+
+        <h2 style="color: rgb(66, 56, 90);">Register New User</h2>
+
+        <div class="border-up"></div>
+        <div class="border-down"></div>
+        <form action="/register" method="post">
+            <fieldset>
+                <div class="row">
+                    <label for="name">Full Name</label>
+                    <div class="tf">
+                        <input type="text" id="user_name" name="user_name"
+                            placeholder="Required" required><br />
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="email">Email Address</label>
+                    <div class="tf">
+                        <input type="email" id="user_email" name="user_mail"
+                            placeholder="Required" required><br />
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="number">Phone Number</label>
+                    <div class="tf">
+                        <input type="tel" id="user_number" name="user_number"
+                            placeholder="999999999"><br />
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="number">Roll No</label>
+                    <div class="tf">
+                        <input type="text" id="user_roll" name="user_roll"
+                            placeholder="000/year"><br />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <label for="branch">Branch</label>
+                    <div class="tf">
+                        <select id="user_branch"><br><br />
+                            <option value disabled selected class="dis">Choose
+                                Branch</option>
+                            <option value="Dcse">Diploma in Computer Science &
+                                Engg</option>
+                            <option value="Dce">Diploma in Civil Engg.</option>
+                            <option value="Dee">Diploma in Electrical
+                                Engg.</option>
+                            <option value="cse">B. Tech. in Computer Sc. &
+                                Engineering</option>
+                            <option value="cse_aiml">B. Tech. in Computer Sc. &
+                                Engg (AI & ML)</option>
+                            <option value="csi_ds">B. Tech. in Computer Sc. &
+                                Engg (Data Science) </option>
+                            <option value="ce">B. Tech. in Civil
+                                Engineering</option>
+                            <option value="me">B. Tech. in Mechanical
+                                Engineering</option>
+                            <option value="ee">B. Tech. in Electrical and
+                                Electronics Engg.</option>
+                            <option value="hs">Humanities and Sciences</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="batch">Year</label>
+                    <div class="tf">
+                        <select id="user_year"> <br><br />
+                            <option value disabled selected class="dis">Choose
+                                Year</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit">Register </button>
+                <p style="color: rgb(66, 56, 90);" class="footer">&copy;
+                    Copyright Geekymacet</p>
+            </form>
+        </div>
+    </body>
+    <footer>
+
+    </footer>
+</html>
