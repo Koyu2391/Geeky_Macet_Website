@@ -22,6 +22,8 @@ class User(db.Model):
     year = db.Column(db.String(10))
     # Optional: Address field
     address = db.Column(db.String(200))
+    verified = db.Column(db.Boolean, default=False)
+    
 
 
 @app.route('/')
@@ -57,7 +59,7 @@ def register():
         # Validate the data (simple example)
         if not name or not email:
             return "Name and email are required", 400
-
+        
         # Create a new User instance
         new_user = User(
             name=name,
@@ -69,12 +71,18 @@ def register():
             address=address
         )
 
-        # Add the new user to the database
+    try:
         db.session.add(new_user)
         db.session.commit()
-        # Provide feedback
+    except Exception as e:
+        db.session.rollback()
+        print(f"Error occurred: {e}")
+        return "An error occurred while registering the user", 500
+    
+    print(f"Creating user with: Name={name}, Email={email}, Phone={phone}, Roll={roll}, Branch={branch}, Year={year}, Address={address}")
 
-    return 'Successfully Submitted'
+
+    return render_template('form_submission=True.html')
 
 
 if __name__ == '__main__':
