@@ -20,8 +20,6 @@ class User(db.Model):
     roll = db.Column(db.String(20))
     branch = db.Column(db.String(50))
     year = db.Column(db.String(10))
-    # Optional: Address field
-    address = db.Column(db.String(200))
     verified = db.Column(db.Boolean, default=False)
     
 
@@ -54,7 +52,6 @@ def register():
         roll = request.form.get('user_roll', '')
         branch = request.form.get('user_branch', '')
         year = request.form.get('user_year', '')
-        address = request.form.get('user_address', '')
 
         # Validate the data (simple example)
         if not name or not email:
@@ -68,7 +65,6 @@ def register():
             roll=roll,
             branch=branch,
             year=year,
-            address=address
         )
 
     try:
@@ -79,7 +75,7 @@ def register():
         print(f"Error occurred: {e}")
         return "An error occurred while registering the user", 500
     
-    print(f"Creating user with: Name={name}, Email={email}, Phone={phone}, Roll={roll}, Branch={branch}, Year={year}, Address={address}")
+    print(f"Creating user with: Name={name}, Email={email}, Phone={phone}, Roll={roll}, Branch={branch}, Year={year}")
 
 
     return render_template('form_submission=True.html')
