@@ -28,6 +28,10 @@ class User(db.Model):
 def home():
     return render_template('index.html')
 
+@app.route('/index.html')
+def home1() :
+    return render_template("/index.html")
+
 @app.route('/verify.html')
 def verify():
     return render_template('verify.html')
@@ -39,7 +43,7 @@ def contact():
 @app.route('/register.html')
 def register_html():
     return render_template("/register.html")
-    
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -79,6 +83,23 @@ def register():
 
 
     return render_template('form_submission=True.html')
+
+
+@app.route('/upload', methods=['POST'])
+def upload_image():
+    if 'image' not in request.files:
+        return 'No file part', 400
+    
+    file = request.files['image']
+    
+    if file.filename == '':
+        return 'No selected file', 400
+    
+    if file:
+        # Process the uploaded image (e.g., decode the QR code)
+        # Save or analyze the image here
+        return 'Image uploaded successfully', 200
+
 
 
 if __name__ == '__main__':
