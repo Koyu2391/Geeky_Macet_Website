@@ -84,22 +84,20 @@ def register():
 
     return render_template('form_submission=True.html')
 
-
-@app.route('/upload', methods=['POST'])
-def upload_image():
-    if 'image' not in request.files:
-        return 'No file part', 400
+@app.route('/verify_user', methods=['POST'])
+def verify_user(): 
+    # Get the form data
+    user_roll = request.form.get('user_roll')
     
-    file = request.files['image']
+    # Check if user exists in the database using roll
+    user = User.query.filter_by(roll=user_roll).first()
     
-    if file.filename == '':
-        return 'No selected file', 400
-    
-    if file:
-        # Process the uploaded image (e.g., decode the QR code)
-        # Save or analyze the image here
-        return 'Image uploaded successfully', 200
-
+    if user:
+        # If user exists
+        return f"User with Roll '{user_roll}' exists in the database."
+    else:
+        # If user does not exist
+        return f"User with Roll '{user_roll}' does not exist in the database."
 
 
 if __name__ == '__main__':
