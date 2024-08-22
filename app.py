@@ -4,9 +4,14 @@ import qrcode
 import os
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, render_template, request, redirect, url_for, flash, session
+import secrets
+
 
 app = Flask(__name__)
 CORS(app) 
+
+app.secret_key = secrets.token_hex(16)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///geekymacet.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -23,10 +28,53 @@ class User(db.Model):
     verified = db.Column(db.Boolean, default=False)
     
 
+admin_credentials = {
+    'admin_username': 'admin',
+    'admin_password': 'admin'
+}
+    
+
 
 @app.route('/')
 def home():
     return render_template('index.html')
+
+@app.route('/admin.html')
+def admin():
+    return render_template('admin.html') 
+
+@app.route('/admin_login', methods = ['GET', 'POST'])
+def login_activity(): 
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        
+        # Check if the entered credentials match the stored credentials
+        if username == admin_credentials['admin_username'] and password == admin_credentials['admin_password']:
+            session['admin'] = True
+            flash('Login successful!', 'success')
+            return redirect(url_for('admin_dashboard'))
+        else:
+            flash('Invalid username or password', 'danger')
+            return redirect(url_for('admin_login'))
+    
+    return render_template('admin_login.html')
+
+
+@app.route('/admin_dash')
+def admin_dashboard():
+    if 'admin' in session:
+        return render_template('admin_dash.html')
+    else:
+        flash('Please log in to access the admin dashboard.', 'warning')
+        return redirect(url_for('admin.html'))
+
+@app.route('/admin_logout')
+def admin_logout():
+    session.pop('admin', None)
+    flash('You have been logged out.', 'success')
+    return redirect(url_for('admin'))
+
 
 @app.route('/index.html')
 def home1() :
