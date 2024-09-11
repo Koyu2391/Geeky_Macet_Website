@@ -49,7 +49,6 @@ def login_activity():
         username = request.form['username']
         password = request.form['password']
         
-        # Check if the entered credentials match the stored credentials
         if username == admin_credentials['admin_username'] and password == admin_credentials['admin_password']:
             session['admin'] = True
             flash('Login successful!', 'success')
@@ -97,7 +96,6 @@ def register():
     if request.method == 'POST':
 
         print("Form data:", request.form)
-        # Extract form data
         name = request.form.get('user_name')
         email = request.form.get('user_mail')
         phone = request.form.get('user_number', '')
@@ -105,11 +103,9 @@ def register():
         branch = request.form.get('user_branch', '')
         year = request.form.get('user_year', '')
 
-        # Validate the data (simple example)
         if not name or not email:
             return "Name and email are required", 400
         
-        # Create a new User instance
         new_user = User(
             name=name,
             email=email,
@@ -134,17 +130,12 @@ def register():
 
 @app.route('/verify_user', methods=['POST'])
 def verify_user(): 
-    # Get the form data
     user_roll = request.form.get('user_roll')
-    
-    # Check if user exists in the database using roll
     user = User.query.filter_by(roll=user_roll).first()
     
     if user:
-        # If user exists
         return f"User with Roll '{user_roll}' exists in the database."
     else:
-        # If user does not exist
         return f"User with Roll '{user_roll}' does not exist in the database."
 
 
