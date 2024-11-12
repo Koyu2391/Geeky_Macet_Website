@@ -42,10 +42,10 @@ function Navbar() {
           {isOpen && (
             <ul className='md:hidden absolute top-16 text-center left-0 w-full bg-[#FBFBFB] shadow-md py-2 px-4 z-50'>
               <li className='py-2 font-bold'><Link to="/" onClick={toggleMenu} className={isActiveLink('/')}>Home</Link></li>
-              <li className='py-2 font-bold'><Link to="/#about" onClick={toggleMenu} className={isActiveLink('/about')}>About</Link></li>
-              <li className='py-2 font-bold'><Link to="/#mission" onClick={toggleMenu} className={isActiveLink('/mission')}>Mission</Link></li>
-              <li className='py-2 font-bold'><Link to="/#developer" onClick={toggleMenu} className={isActiveLink('/developer')}>Developer</Link></li>
-              <li className='py-2 font-bold'><Link to="/#contact" onClick={toggleMenu} className={isActiveLink('/contact')}>Contact</Link></li>
+              <li className='py-2 font-bold'><Link to="/about" onClick={toggleMenu} className={isActiveLink('/about')}>About</Link></li>
+              <li className='py-2 font-bold'><Link to="/mission" onClick={toggleMenu} className={isActiveLink('/mission')}>Mission</Link></li>
+              <li className='py-2 font-bold'><Link to="/developer" onClick={toggleMenu} className={isActiveLink('/developer')}>Developer</Link></li>
+              <li className='py-2 font-bold'><Link to="/contact" onClick={toggleMenu} className={isActiveLink('/contact')}>Contact</Link></li>
               <li className='py-2 pb-6 font-bold'><Link to="/verify" onClick={toggleMenu} className={isActiveLink('/verify')}>Verify</Link></li>
             </ul>
           )}
