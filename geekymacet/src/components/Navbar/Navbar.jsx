@@ -31,10 +31,10 @@ function Navbar() {
           {/* Desktop Menu */}
           <ul className='hidden md:flex gap-4 lg:gap-8 text-lg'>
             <li><Link to="/" className={`font-bold ${isActiveLink('/')}`}>Home</Link></li>
-            <li><Link to="/about" className='font-bold text-[#6F757A]'>About</Link></li>
-            <li><Link to="/mission" className='font-bold text-[#6F757A]'>Mission</Link></li>
-            <li><Link to="/developer" className='font-bold text-[#6F757A]'>Developer</Link></li>
-            <li><Link to="/contact" className='font-bold text-[#6F757A]'>Contact</Link></li>
+            <li><Link to="/about" className={`font-bold ${isActiveLink('/about')}`}>About</Link></li>
+            <li><Link to="/mission" className={`font-bold ${isActiveLink('/mission')}`}>Mission</Link></li>
+            <li><Link to="/developer" className={`font-bold ${isActiveLink('/developer')}`}>Developer</Link></li>
+            <li><Link to="/contact" className={`font-bold ${isActiveLink('/contact')}`}>Contact</Link></li>
             <li><Link to="/verify" className={`font-bold ${isActiveLink('/verify')}`}>Verify</Link></li>
           </ul>
 
@@ -42,10 +42,10 @@ function Navbar() {
           {isOpen && (
             <ul className='md:hidden absolute top-16 text-center left-0 w-full bg-[#FBFBFB] shadow-md py-2 px-4 z-50'>
               <li className='py-2 font-bold'><Link to="/" onClick={toggleMenu} className={isActiveLink('/')}>Home</Link></li>
-              <li className='py-2 font-bold'><Link to="/#about" onClick={toggleMenu}>About</Link></li>
-              <li className='py-2 font-bold'><Link to="/#mission" onClick={toggleMenu}>Mission</Link></li>
-              <li className='py-2 font-bold'><Link to="/#developer" onClick={toggleMenu}>Developer</Link></li>
-              <li className='py-2 font-bold'><Link to="/#contact" onClick={toggleMenu}>Contact</Link></li>
+              <li className='py-2 font-bold'><Link to="/#about" onClick={toggleMenu} className={isActiveLink('/about')}>About</Link></li>
+              <li className='py-2 font-bold'><Link to="/#mission" onClick={toggleMenu} className={isActiveLink('/mission')}>Mission</Link></li>
+              <li className='py-2 font-bold'><Link to="/#developer" onClick={toggleMenu} className={isActiveLink('/developer')}>Developer</Link></li>
+              <li className='py-2 font-bold'><Link to="/#contact" onClick={toggleMenu} className={isActiveLink('/contact')}>Contact</Link></li>
               <li className='py-2 pb-6 font-bold'><Link to="/verify" onClick={toggleMenu} className={isActiveLink('/verify')}>Verify</Link></li>
             </ul>
           )}
