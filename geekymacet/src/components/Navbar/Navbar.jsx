@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { MdAccountCircle } from "react-icons/md";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { LuUser2 } from "react-icons/lu";
+import { RxHamburgerMenu } from "react-icons/rx";
 import { RxCross2 } from "react-icons/rx";
 import { Link, useLocation } from 'react-router-dom';
 
@@ -21,32 +21,32 @@ function Navbar() {
   };
 
   return (
-    <>
-      <div className='flex justify-between items-center p-4 bg-[#ffffff] text-[#131417] fixed top-0 z-99 w-full border-b border-gray-400'>
+    <div className='relative z-50'>
+      <div className='h-[68px] flex justify-between items-center p-4 bg-[#ffffff] text-[#131417] fixed top-0 right-0 z-99 w-full border-b border-gray-400'>
         <div className='flex items-center gap-3'>
-          {isOpen ? <RxCross2 className='md:hidden cursor-pointer text-2xl' onClick={toggleMenu} /> : <GiHamburgerMenu className='md:hidden cursor-pointer text-2xl' onClick={toggleMenu} />}
-          <Link to="/" className='text-2xl font-bold'>Geekymacet</Link>
+          {isOpen ? <RxCross2 className='md:hidden cursor-pointer text-2xl' onClick={toggleMenu} /> : <RxHamburgerMenu className='md:hidden cursor-pointer text-2xl' onClick={toggleMenu} />}
+          <Link to="/" className='text-2xl font-[400]'>Geekymacet</Link>
         </div>
         <div className='flex items-center gap-7'>
           {/* Desktop Menu */}
-          <ul className='hidden md:flex gap-4 lg:gap-8 text-lg'>
-            <li><Link to="/" className={`font-bold ${isActiveLink('/')}`}>Home</Link></li>
-            <li><Link to="/about" className={`font-bold ${isActiveLink('/about')}`}>About</Link></li>
-            <li><Link to="/mission" className={`font-bold ${isActiveLink('/mission')}`}>Mission</Link></li>
-            <li><Link to="/developer" className={`font-bold ${isActiveLink('/developer')}`}>Developer</Link></li>
-            <li><Link to="/contact" className={`font-bold ${isActiveLink('/contact')}`}>Contact</Link></li>
-            <li><Link to="/verify" className={`font-bold ${isActiveLink('/verify')}`}>Verify</Link></li>
+          <ul className='hidden md:flex gap-4 lg:gap-8 text-l'>
+            <li><Link to="/" className={`font-[400] ${isActiveLink('/')}`}>Home</Link></li>
+            <li><Link to="/about" className={`font-[400] ${isActiveLink('/about')}`}>About</Link></li>
+            <li><Link to="/mission" className={`font-[400] ${isActiveLink('/mission')}`}>Mission</Link></li>
+            <li><Link to="/developer" className={`font-[400] ${isActiveLink('/developer')}`}>Developer</Link></li>
+            <li><Link to="/contact" className={`font-[400] ${isActiveLink('/contact')}`}>Contact</Link></li>
+            <li><Link to="/verify" className={`font-[400] ${isActiveLink('/verify')}`}>Verify</Link></li>
           </ul>
 
           {/* Mobile Menu */}
           {isOpen && (
-            <ul className='md:hidden absolute top-16 text-center left-0 w-full bg-[#FBFBFB] shadow-md py-2 px-4 z-50'>
-              <li className='py-2 font-bold'><Link to="/" onClick={toggleMenu} className={isActiveLink('/')}>Home</Link></li>
-              <li className='py-2 font-bold'><Link to="/about" onClick={toggleMenu} className={isActiveLink('/about')}>About</Link></li>
-              <li className='py-2 font-bold'><Link to="/mission" onClick={toggleMenu} className={isActiveLink('/mission')}>Mission</Link></li>
-              <li className='py-2 font-bold'><Link to="/developer" onClick={toggleMenu} className={isActiveLink('/developer')}>Developer</Link></li>
-              <li className='py-2 font-bold'><Link to="/contact" onClick={toggleMenu} className={isActiveLink('/contact')}>Contact</Link></li>
-              <li className='py-2 pb-6 font-bold'><Link to="/verify" onClick={toggleMenu} className={isActiveLink('/verify')}>Verify</Link></li>
+            <ul className='md:hidden absolute top-16 text-center left-0 w-full bg-[#ffffff] shadow-md py-2 px-4 z-50 border-black-400'>
+              <li className='py-2 font-[400] text-ll pt-5'><Link to="/" onClick={toggleMenu} className={isActiveLink('/')}>Home</Link></li>
+              <li className='py-2 font-[400] text-l pt-5'><Link to="/about" onClick={toggleMenu} className={isActiveLink('/about')}>About</Link></li>
+              <li className='py-2 font-[400] text-l pt-5'><Link to="/mission" onClick={toggleMenu} className={isActiveLink('/mission')}>Mission</Link></li>
+              <li className='py-2 font-[400] text-l pt-5'><Link to="/developer" onClick={toggleMenu} className={isActiveLink('/developer')}>Developer</Link></li>
+              <li className='py-2 font-[400] text-l pt-5'><Link to="/contact" onClick={toggleMenu} className={isActiveLink('/contact')}>Contact</Link></li>
+              <li className='py-2 pb-6 font-[400] text-l pt-5'><Link to="/verify" onClick={toggleMenu} className={isActiveLink('/verify')}>Verify</Link></li>
             </ul>
           )}
         {/* Account Menu */}
@@ -54,7 +54,7 @@ function Navbar() {
             onMouseEnter={() => setShowAccountMenu(true)}
             onMouseLeave={() => setShowAccountMenu(false)}>
           <Link to="/login">
-            <MdAccountCircle className='text-4xl hover:text-gray-600 transition-colors' />
+            <LuUser2 className='text-2xl hover:text-gray-600 transition-colors' />
           </Link>
           
           {/* Account Dropdown */}
@@ -69,7 +69,7 @@ function Navbar() {
         </div>
       </div>
       
-    </>
+    </div>
   )
 }
 

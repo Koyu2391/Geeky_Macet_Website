@@ -12,7 +12,7 @@ import Profile from './components/Profile/Profile'
 import Verify from './components/Verify/Verify'
 function App() {
   return (
-    <div className="bg-[#FBFBFB] min-h-screen text-[#131417]">
+    <div className="bg-[#ffffff] text-[#131417]">
       <Router>
         <Navbar />
         <Routes>
