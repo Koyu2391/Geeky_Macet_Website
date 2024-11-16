@@ -19,21 +19,17 @@ db = SQLAlchemy(app)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    phone = db.Column(db.String(20))
-    roll = db.Column(db.String(20))
-    branch = db.Column(db.String(50))
-    year = db.Column(db.String(10))
+    name = db.Column(db.String(150), nullable=False)
+    email = db.Column(db.String(150), unique=True, nullable=False)
+    phone = db.Column(db.String(15), nullable=False)
+    roll = db.Column(db.String(20), nullable=False)
+    year = db.Column(db.String(4), nullable=False)
+    branch = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(200), nullable=False)
     verified = db.Column(db.Boolean, default=False)
-    
 
-admin_credentials = {
-    'admin_username': 'admin',
-    'admin_password': 'admin'
-}
-    
-
+with app.app_context():
+    db.create_all()
 
 @app.route('/')
 def home():
@@ -42,38 +38,6 @@ def home():
 @app.route('/admin.html')
 def admin():
     return render_template('admin.html') 
-
-@app.route('/admin_login', methods = ['GET', 'POST'])
-def login_activity(): 
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        
-        if username == admin_credentials['admin_username'] and password == admin_credentials['admin_password']:
-            session['admin'] = True
-            flash('Login successful!', 'success')
-            return redirect(url_for('admin_dashboard'))
-        else:
-            flash('Invalid username or password', 'danger')
-            return redirect(url_for('admin_login'))
-    
-    return render_template('admin_login.html')
-
-
-@app.route('/admin_dash')
-def admin_dashboard():
-    if 'admin' in session:
-        return render_template('admin_dash.html')
-    else:
-        flash('Please log in to access the admin dashboard.', 'warning')
-        return redirect(url_for('admin.html'))
-
-@app.route('/admin_logout')
-def admin_logout():
-    session.pop('admin', None)
-    flash('You have been logged out.', 'success')
-    return redirect(url_for('admin'))
-
 
 @app.route('/index.html')
 def home1() :
@@ -87,46 +51,25 @@ def verify():
 def contact():
     return render_template('contact.html')
 
-@app.route('/register.html')
-def register_html():
-    return render_template("/register.html")
-
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-    if request.method == 'POST':
-
-        print("Form data:", request.form)
-        name = request.form.get('user_name')
-        email = request.form.get('user_mail')
-        phone = request.form.get('user_number', '')
-        roll = request.form.get('user_roll', '')
-        branch = request.form.get('user_branch', '')
-        year = request.form.get('user_year', '')
-
-        if not name or not email:
-            return "Name and email are required", 400
-        
-        new_user = User(
-            name=name,
-            email=email,
-            phone=phone,
-            roll=roll,
-            branch=branch,
-            year=year,
-        )
-
+    data = request.json
     try:
+        # Create a new user
+        new_user = User(
+            name=data['name'],
+            email=data['email'],
+            phone=data['phone'],
+            roll=data['roll'],
+            year=data['year'],
+            branch=data['branch'],
+            password=data['password']  # Hash this password in production
+        )
         db.session.add(new_user)
         db.session.commit()
+        return jsonify({"message": "User registered successfully"}), 201
     except Exception as e:
-        db.session.rollback()
-        print(f"Error occurred: {e}")
-        return "An error occurred while registering the user", 500
-    
-    print(f"Creating user with: Name={name}, Email={email}, Phone={phone}, Roll={roll}, Branch={branch}, Year={year}")
-
-
-    return render_template('form_submission=True.html')
+        return jsonify({"error": str(e)}), 400
 
 @app.route('/verify_user', methods=['POST'])
 def verify_user(): 
@@ -138,6 +81,29 @@ def verify_user():
     else:
         return f"User with Roll '{user_roll}' does not exist in the database."
 
+@app.route('/api/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
+    
+    # Find the user by email
+    user = User.query.filter_by(email=email).first()
+    
+    if user:
+        # Check if the password matches (plain text comparison)
+        if user.password == password:
+            return jsonify({"success": True, "message": "Login successful!"})
+        else:
+            return jsonify({"success": False, "message": "Invalid password!"})
+    else:
+        return jsonify({"success": False, "message": "User not found!"})
+
+
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template('admin_dash.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

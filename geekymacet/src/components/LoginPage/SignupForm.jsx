@@ -13,17 +13,38 @@ export default function SignupForm(props) {
   const [branch, setBranch] = useState('');
   const [password, setPassword] = useState('');
 
-  const submitHandler = (e)=>{
+  const submitHandler = async (e) => {
     e.preventDefault();
-    setName('');
-    setEmail('');
-    setPhone('');
-    setRoll('');
-    setYear('');
-    setBranch('');
-    setPassword('');
-    props.loginStatus();
-  }
+    
+    const userData = { name, email, phone, roll, year, branch, password };
+  
+    try {
+      const response = await fetch('http://127.0.0.1:5000/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+  
+      const result = await response.json();
+      if (response.ok) {
+        alert('User registered successfully!');
+        setName('');
+        setEmail('');
+        setPhone('');
+        setRoll('');
+        setYear('');
+        setBranch('');
+        setPassword('');
+      } else {
+        alert(result.error || 'Registration failed');
+      }
+    } catch (error) {
+      alert('An error occurred: ' + error.message);
+    }
+  };
+  
 
     return (
         <form 
@@ -177,7 +198,7 @@ export default function SignupForm(props) {
       
       
                     {/* signup button */}
-                    <button type='submit' className='mt-8 bg-green-950 text-white p-2 w-[100%] rounded-xl font-normal'>Sign Up</button>
+                    <button type='submit' className='mt-8 bg-green-950 text-white p-2 w-[100%] rounded-xl font-normal' onClick={submitHandler}>Sign Up</button>
                     <p className='text-center mt-3'>Already have an account? 
                       <span
                       onClick={()=>{

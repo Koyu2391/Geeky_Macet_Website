@@ -2,20 +2,46 @@ import React from 'react'
 import { useState } from 'react';
 import { BiShow } from "react-icons/bi";
 import { BiHide } from "react-icons/bi";
-
-
+import { useNavigate } from "react-router-dom";
 
 export default function LoginForm(props) {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const loginSubmitHandler = (e)=>{
-    e.preventDefault();
-    setEmail('');
-    setPassword('');
-    alert("hogya bhai login")
-  }
 
+  const navigate = useNavigate();
+  
+  const loginSubmitHandler = async (e) => {
+    e.preventDefault();
+  
+    try {
+      const response = await fetch('http://127.0.0.1:5000/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+  
+      const data = await response.json();  
+      console.log('API Response:', data);  
+  
+      if (data.success) {
+        navigate('/developer')
+      } else {
+        alert(data.message); 
+      }
+    } catch (error) {
+      console.error('Error:', error);  
+      alert('Something went wrong! Check the console.');
+    }
+  };
+
+  
+  
   return (
     <form 
     onSubmit={(e)=>{
@@ -70,7 +96,7 @@ export default function LoginForm(props) {
                     </div>
   
                 {/* Login button */}
-                <button type='submit' className='mt-8 bg-green-950 text-white p-2 w-[100%] rounded-xl font-normal'>Log in</button>
+                <button type='submit' className='mt-8 bg-green-950 text-white p-2 w-[100%] rounded-xl font-normal' onClick={loginSubmitHandler}>Log in</button>
                 <p className='text-center mt-3'>Don't have an account?  
                   <span
                   onClick={()=>{
