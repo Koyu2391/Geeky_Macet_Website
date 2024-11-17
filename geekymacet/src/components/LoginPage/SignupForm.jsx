@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { BiShow } from "react-icons/bi";
 import { BiHide } from "react-icons/bi";
 
@@ -14,7 +14,12 @@ export default function SignupForm(props) {
   const [password, setPassword] = useState('');
   const [rollPre, setRollPre] = useState('');
   const [rollPost, setRollPost] = useState('');
-  console.log(roll);
+
+  // roll update when we change rollpre and rollpost
+  useEffect(() => {
+    setRoll(rollPre + rollPost);
+  },[rollPre, rollPost]);
+
   const submitHandler = async (e) => {
     e.preventDefault();
     
@@ -118,19 +123,18 @@ export default function SignupForm(props) {
 
                        {/* rollNo input box */}
                     <div className='flex flex-col w-[48%] mt-4'>
-                      <label htmlFor="roll1"  className='text-s font-normal'> Roll Number</label>
+                      <label htmlFor="rollPre"  className='text-s font-normal'> Roll Number</label>
                       <div className='flex gap-2 items-center'>
                         {/* roll pre */}
                       <input
                       value={rollPre} 
                       onChange={(e)=>{
                         setRollPre(e.target.value);
-                        setRoll(rollPre+rollPost);
                       }} 
                       required 
                       type="number"
-                      id='roll1'  
-                      name='roll1'
+                      id='rollPre'  
+                      name='rollPre'
                       placeholder='014' 
                       className='w-[40%] h-[42px] border-[1px] border-gray-300 p-2 rounded-xl focus:outline-none focus:border-green-900'/>
                       <p>/</p>
@@ -139,12 +143,11 @@ export default function SignupForm(props) {
                       value={rollPost} 
                       onChange={(e)=>{
                         setRollPost(e.target.value);
-                        setRoll(rollPre+rollPost);
                       }} 
                       required 
                       type="number"
-                      id='roll1'  
-                      name='roll'
+                      id='rollPost'  
+                      name='rollPost'
                       placeholder='22' 
                       className='w-[40%] h-[42px] border-[1px] border-gray-300 p-2 rounded-xl focus:outline-none focus:border-green-900'/>
                       </div>
