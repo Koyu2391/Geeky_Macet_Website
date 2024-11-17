@@ -71,15 +71,36 @@ def register():
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 
-@app.route('/verify_user', methods=['POST'])
-def verify_user(): 
-    user_roll = request.form.get('user_roll')
-    user = User.query.filter_by(roll=user_roll).first()
-    
+@app.route('/verify', methods=['POST'])
+def verify_user():
+    data = request.get_json()
+
+    user_roll = data.get('user_roll')  
+    user_year = data.get('user_year')  
+
+    if not user_roll or not user_year:
+        return jsonify({'status': 'failure', 'message': 'Roll number and year are required'}), 400
+
+
+    try:
+        user_year = int(user_year)
+    except ValueError:
+        return jsonify({'status': 'failure', 'message': 'Invalid year format'}), 400
+    print("Received roll:", user_roll)
+    print("Received year:", user_year)
+
+    user = User.query.filter_by(roll=user_roll, year=user_year).first()
+
     if user:
-        return f"User with Roll '{user_roll}' exists in the database."
+        return jsonify({
+            'status': 'success',
+            'message': f'User verified: {user.name}, Year: {user.year}'
+        })
     else:
-        return f"User with Roll '{user_roll}' does not exist in the database."
+        return jsonify({'status': 'failure', 'message': 'Roll number and year do not match'}), 404
+
+
+
 
 @app.route('/api/login', methods=['POST'])
 def login():
