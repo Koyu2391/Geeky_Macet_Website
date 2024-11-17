@@ -12,7 +12,9 @@ export default function SignupForm(props) {
   const [year, setYear] = useState('');
   const [branch, setBranch] = useState('');
   const [password, setPassword] = useState('');
-
+  const [rollPre, setRollPre] = useState('');
+  const [rollPost, setRollPost] = useState('');
+  console.log(roll);
   const submitHandler = async (e) => {
     e.preventDefault();
     
@@ -44,7 +46,6 @@ export default function SignupForm(props) {
       alert('An error occurred: ' + error.message);
     }
   };
-  
 
     return (
         <form 
@@ -98,7 +99,7 @@ export default function SignupForm(props) {
                     </div>
 
                      {/* phone input box */}
-                     <div className='flex flex-col w-[100%] mt-4'>
+                    <div className='flex flex-col w-[100%] mt-4'>
                       <label htmlFor="phone"  className='text-s font-normal'> Phone Number</label>
                       <input
                       value={phone} 
@@ -116,19 +117,37 @@ export default function SignupForm(props) {
                       <div className='w-full flex gap-[4%]'>
 
                        {/* rollNo input box */}
-                     <div className='flex flex-col w-[48%] mt-4'>
-                      <label htmlFor="roll"  className='text-s font-normal'> Roll Number</label>
+                    <div className='flex flex-col w-[48%] mt-4'>
+                      <label htmlFor="roll1"  className='text-s font-normal'> Roll Number</label>
+                      <div className='flex gap-2 items-center'>
+                        {/* roll pre */}
                       <input
-                      value={roll} 
+                      value={rollPre} 
                       onChange={(e)=>{
-                        setRoll(e.target.value);
+                        setRollPre(e.target.value);
+                        setRoll(rollPre+rollPost);
                       }} 
                       required 
-                      type="text"
-                      id='roll'  
+                      type="number"
+                      id='roll1'  
+                      name='roll1'
+                      placeholder='014' 
+                      className='w-[40%] h-[42px] border-[1px] border-gray-300 p-2 rounded-xl focus:outline-none focus:border-green-900'/>
+                      <p>/</p>
+                      {/* roll post */}
+                      <input
+                      value={rollPost} 
+                      onChange={(e)=>{
+                        setRollPost(e.target.value);
+                        setRoll(rollPre+rollPost);
+                      }} 
+                      required 
+                      type="number"
+                      id='roll1'  
                       name='roll'
-                      placeholder='Roll Number' 
-                      className='h-[42px] border-[1px] border-gray-300 p-2 rounded-xl focus:outline-none focus:border-green-900'/>
+                      placeholder='22' 
+                      className='w-[40%] h-[42px] border-[1px] border-gray-300 p-2 rounded-xl focus:outline-none focus:border-green-900'/>
+                      </div>
                     </div>
 
                       {/* year input box */}
