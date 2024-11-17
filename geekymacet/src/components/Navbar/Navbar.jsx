@@ -10,9 +10,6 @@ function Navbar() {
   const location = useLocation();
 
   const isActiveLink = (path) => {
-    console.log("location.pathname: ", location.pathname );
-    console.log("path: ", path);
-    console.log("endhere ");
     return location.pathname === path ? 'text-[#131417] bg-[#F6F6F6] rounded-md px-3 py-2' : 'text-[#6F757A]';
   };
 
