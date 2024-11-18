@@ -1,7 +1,7 @@
 import React  from 'react'
 import LoginForm from './LoginForm'
 import SignupForm from './SignupForm'
-import AdminForm from './AdminForm'
+// import AdminForm from './AdminForm'
 import { useState } from 'react'
 
 function LoginPage() {
