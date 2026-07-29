@@ -63,7 +63,7 @@ def register():
             roll=data['roll'],
             year=data['year'],
             branch=data['branch'],
-            password=data['password']  # Hash this password in production
+            password=data['password']  
         )
         db.session.add(new_user)
         db.session.commit()
